@@ -30,3 +30,24 @@ Example:
 
 This module would typically be used in an application that can provide
 an endpoint for the Prometheus server to monitor.
+
+The `prometheusRegistry` constructor parameter allows you to provide an existing 
+[prom-client](https://github.com/siimon/prom-client) registry. 
+The metrics about the circuit will be added to the provided registry instead 
+of the global registry.
+The [default metrics](https://github.com/siimon/prom-client#default-metrics) 
+will not be added to the provided registry.
+
+```js
+const opossum = require('opossum');
+const PrometheusMetrics = require('opossum-prometheus');
+const { Registry } = require('prom-client');
+
+// Create a registry
+const registry = new Registry();
+
+// create a circuit
+const circuit = opossum(functionThatMightFail);
+const metrics = new PrometheusMetrics(circuit, registry)
+```
+
