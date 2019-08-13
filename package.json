@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "nyc tape test/*.js | tap-spec",
-    "coverage": "nyc report && if [ $CODACY_PROJECT_TOKEN'' != '' ] ; then nyc report --reporter=text-lcov | codacy-coverage; fi",
+    "coverage": "nyc report && if [ $CODACY_OPOSSUM_PROMETHEUS'' != '' ] ; then nyc report --reporter=text-lcov | codacy-coverage; fi",
     "ci": "npm run test && npm run coverage",
     "prerelease": "npm run ci",
     "release": "standard-version -s -a",
