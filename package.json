@@ -1,0 +1,42 @@
+{
+  "name": "opossum-prometheus",
+  "version": "0.0.1",
+  "description": "Prometheus metrics for opossum circuit breaker",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "build:docs": "npm run build:docs:html && npm run build:docs:markdown",
+    "build:docs:html": "documentation build index.js -f html -o docs --config documentation.yml",
+    "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",
+    "test": "nyc tape test/*.js | tap-spec",
+    "coverage": "nyc report && if [ $CODACY_PROJECT_TOKEN'' != '' ] ; then nyc report --reporter=text-lcov | codacy-coverage; fi",
+    "ci": "npm run test && npm run coverage",
+    "prerelease": "npm run ci",
+    "release": "standard-version -s -a",
+    "lint": "standardx test/*.js index.js"
+  },
+  "support": {
+    "target": "LTS",
+    "response": "REGULAR-7",
+    "backing": "COMPANY"
+  },
+  "keywords": [
+    "circuit breaker",
+    "fail fast",
+    "prometheus"
+  ],
+  "author": "Red Hat, Inc.",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "codacy-coverage": "^3.4.0",
+    "nyc": "^14.1.1",
+    "opossum": "^3.0.0",
+    "standard-version": "^7.0.0",
+    "standardx": "^3.0.1",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.11.0"
+  },
+  "dependencies": {
+    "prom-client": "^11.5.3"
+  }
+}
