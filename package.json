@@ -28,9 +28,9 @@
   "devDependencies": {
     "codacy-coverage": "^3.4.0",
     "nyc": "^14.1.1",
-    "opossum": "^3.0.0",
+    "opossum": "^4.0.0",
     "standard-version": "^7.0.0",
-    "standardx": "^3.0.1",
+    "standardx": "^5.0.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.11.0"
   },

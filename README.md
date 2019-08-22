@@ -4,7 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6dcbcd9e5a6649faafb5b00ceeecb4db)](https://www.codacy.com/app/nodeshift/opossum-prometheus?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nodeshift/opossum-prometheus&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/6dcbcd9e5a6649faafb5b00ceeecb4db)](https://www.codacy.com/app/nodeshift/opossum-prometheus?utm_source=github.com&utm_medium=referral&utm_content=nodeshift/opossum-prometheus&utm_campaign=Badge_Coverage)
 [![dependencies Status](https://david-dm.org/nodeshift/opossum-prometheus/status.svg)](https://david-dm.org/nodeshift/opossum-prometheus)
-[![Known Vulnerabilities](https://snyk.io/test/npm/opossum-prometheus/badge.svg)](https://snyk.io/test/npm/opossum-prometheus)
+[![Known Vulnerabilities](https://snyk.io/test/npm/opossum-prometheus/badge.svg)](https://snyk.io/test/npm/opossum-prometheus) [![Greenkeeper badge](https://badges.greenkeeper.io/nodeshift/opossum-prometheus.svg)](https://greenkeeper.io/)
 
 This module provides [Prometheus](https://prometheus.io/) metrics for
 [opossum](https://github.com/nodeshift/opossum) circuit breakers. To use
