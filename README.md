@@ -14,12 +14,12 @@ constructor.
 Example:
 
 ```js
-  const circuitBreaker = require('opossum');
+  const CircuitBreaker = require('opossum');
   const PrometheusMetrics = require('opossum-prometheus');
 
   // create a couple of circuit breakers
-  const c1 = circuitBreaker(someFunction);
-  const c2 = circuitBreaker(someOtherfunction);
+  const c1 = new CircuitBreaker(someFunction);
+  const c2 = new CircuitBreaker(someOtherfunction);
 
   // Provide them to the constructor
   const prometheus = new PrometheusMetrics([c1, c2]);
@@ -31,15 +31,15 @@ Example:
 This module would typically be used in an application that can provide
 an endpoint for the Prometheus server to monitor.
 
-The `prometheusRegistry` constructor parameter allows you to provide an existing 
-[prom-client](https://github.com/siimon/prom-client) registry. 
-The metrics about the circuit will be added to the provided registry instead 
+The `prometheusRegistry` constructor parameter allows you to provide an existing
+[prom-client](https://github.com/siimon/prom-client) registry.
+The metrics about the circuit will be added to the provided registry instead
 of the global registry.
-The [default metrics](https://github.com/siimon/prom-client#default-metrics) 
+The [default metrics](https://github.com/siimon/prom-client#default-metrics)
 will not be added to the provided registry.
 
 ```js
-const opossum = require('opossum');
+const CircuitBreaker = require('opossum');
 const PrometheusMetrics = require('opossum-prometheus');
 const { Registry } = require('prom-client');
 
@@ -47,7 +47,7 @@ const { Registry } = require('prom-client');
 const registry = new Registry();
 
 // create a circuit
-const circuit = opossum(functionThatMightFail);
+const circuit = new CircuitBreaker(functionThatMightFail);
 const metrics = new PrometheusMetrics(circuit, registry)
 ```
 
