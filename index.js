@@ -9,7 +9,7 @@ const client = require('prom-client');
 // circuit name to pass the tests.
 // More details:
 // https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels
-function normalizePrefix(prefixName) {
+function normalizePrefix (prefixName) {
   return `circuit_${prefixName.replace(/[ |-]/g, '_')}_`;
 }
 
@@ -27,7 +27,7 @@ class PrometheusMetrics {
     let prefix;
     circuits.forEach(circuit => {
       prefix = normalizePrefix(circuit.name);
-      for (let eventName of circuit.eventNames()) {
+      for (const eventName of circuit.eventNames()) {
         const counter = new this._client.Counter({
           name: `${prefix}${eventName}`,
           help: `A count of the ${circuit.name} circuit's ${eventName} event`,

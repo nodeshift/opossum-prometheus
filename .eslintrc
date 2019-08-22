@@ -18,7 +18,8 @@
       "allow": ["warn", "error"]
     }],
     "valid-jsdoc": "error",
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
   }
 
 }
