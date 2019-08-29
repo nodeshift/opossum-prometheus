@@ -19,7 +19,7 @@ class PrometheusMetrics {
       throw new Error('A circuit or a list of circuits is required');
     }
 
-    circuits = Array.isArray(circuits) ? circuits : [circuits]
+    circuits = Array.isArray(circuits) ? circuits : [circuits];
 
     this._registry = registry || client.register;
     this._client = client;

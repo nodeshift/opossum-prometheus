@@ -25,7 +25,7 @@ test('The factory function errors when no circuits are passed in', t => {
 
   t.throws(() => {
     new PrometheusMetrics();
-  }, 'A circuit or a list of circuits is required')
+  }, 'A circuit or a list of circuits is required');
 
   t.end();
 });
