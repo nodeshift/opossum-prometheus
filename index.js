@@ -15,6 +15,12 @@ function normalizePrefix (prefixName) {
 
 class PrometheusMetrics {
   constructor (circuits, registry) {
+    if (!circuits) {
+      throw new Error('A circuit or a list of circuits is required');
+    }
+
+    circuits = Array.isArray(circuits) ? circuits : [circuits]
+
     this._registry = registry || client.register;
     this._client = client;
     this.counters = [];
