@@ -20,6 +20,26 @@ function passFail (x) {
   });
 }
 
+test('The factory function errors when no circuits are passed in', t => {
+  t.plan(1);
+
+  t.throws(() => {
+    new PrometheusMetrics();
+  }, 'A circuit or a list of circuits is required');
+
+  t.end();
+});
+
+test('The factory function takes an object instead of just an Array', t => {
+  t.plan(2);
+  const c1 = new CircuitBreaker(passFail, { name: 'fred' });
+  const prometheus = new PrometheusMetrics(c1);
+  t.equal(c1.name, 'fred');
+  t.ok(/circuit_fred_/.test(prometheus.metrics));
+  prometheus.clear();
+  t.end();
+});
+
 test('The factory function provides access to metrics for all circuits', t => {
   t.plan(4);
   const c1 = new CircuitBreaker(passFail, { name: 'fred' });
