@@ -18,7 +18,7 @@ class PrometheusMetrics {
 
     if (circuits instanceof client.Registry) {
       circuits = undefined;
-      registry= circuits;
+      registry = circuits;
     } 
 
     this._registry = registry || client.register;
