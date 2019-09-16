@@ -24,6 +24,11 @@ Example:
   // Provide them to the constructor
   const prometheus = new PrometheusMetrics([c1, c2]);
 
+  //...
+  // Provide other circuit breaker later
+  const c3 = new CircuitBreaker(someOtherfunction3);
+  prometheus.add([C3]);
+  
   // Write metrics to the console
   console.log(prometheus.metrics);
 ```
