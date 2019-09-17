@@ -15,11 +15,10 @@ function normalizePrefix (prefixName) {
 
 class PrometheusMetrics {
   constructor (circuits, registry) {
-
     if (circuits instanceof client.Registry) {
       circuits = undefined;
       registry = circuits;
-    } 
+    }
 
     this._registry = registry || client.register;
     this._client = client;
@@ -32,10 +31,10 @@ class PrometheusMetrics {
 
     if (circuits) {
       this.add(circuits);
-    } 
+    }
   }
 
-  add(circuits) {
+  add (circuits) {
     circuits = Array.isArray(circuits) ? circuits : [circuits];
     let prefix;
     circuits.forEach(circuit => {
