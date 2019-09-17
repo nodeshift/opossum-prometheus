@@ -101,6 +101,14 @@ test('The add function provides access to metrics for all circuits', t => {
   t.end();
 });
 
+test('The add function takes an object instead of just an Array', t => {
+  const prometheus = new PrometheusMetrics();
+  prometheus.add();
+  t.notOk(/circuit_/.test(prometheus.metrics));
+  prometheus.clear();
+  t.end();
+});
+
 test('Circuit fire/success/failure are counted', t => {
   const circuit = new CircuitBreaker(passFail);
   const fire = /circuit_passFail_fire 2/;
@@ -173,6 +181,38 @@ test('Should not add default metrics to custom registry', t => {
   for (const name of names) {
     const match = new RegExp(`opossum_${name}`);
     t.notOk(match.test(metrics), name);
+  }
+  prometheus.clear();
+  t.end();
+});
+
+test('Default prometheus metrics are enabled without circuit', t => {
+  const registry = new Registry();
+  const prometheus = new PrometheusMetrics(registry);
+  const metrics = prometheus.metrics;
+  const names = [
+    'nodejs_eventloop_lag',
+    'nodejs_active_handles',
+    'nodejs_active_requests',
+    'nodejs_heap_size_total_bytes',
+    'nodejs_heap_size_used_bytes',
+    'nodejs_external_memory_bytes',
+    'nodejs_heap_space_size_total_bytes',
+    'nodejs_heap_space_size_used_bytes',
+    'nodejs_heap_space_size_available_bytes',
+    'nodejs_version_info',
+    'process_cpu_seconds_total',
+    'process_open_fds',
+    'process_max_fds',
+    'process_virtual_memory_bytes',
+    'process_resident_memory_bytes',
+    'process_heap_bytes',
+    'process_start_time_seconds'
+  ];
+  t.plan(names.length);
+  for (const name of names) {
+    const match = new RegExp(`opossum_${name}`);
+    t.ok(match.test(metrics), name);
   }
   prometheus.clear();
   t.end();

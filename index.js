@@ -35,6 +35,9 @@ class PrometheusMetrics {
   }
 
   add (circuits) {
+    if (!circuits) {
+      return;
+    }
     circuits = Array.isArray(circuits) ? circuits : [circuits];
     let prefix;
     circuits.forEach(circuit => {
