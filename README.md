@@ -14,7 +14,7 @@ constructor.
 For each circuit breaker, the metrics are:
 
 * a `prometheus counter` for each event name
-* a `prometheus summary` for the events `success`, `failed` and `timeout` execution time.
+* a `prometheus summary` for the events `success`, `failed` execution time.
 
 Example:
 
