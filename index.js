@@ -16,8 +16,8 @@ function normalizePrefix (prefixName) {
 class PrometheusMetrics {
   constructor (circuits, registry) {
     if (circuits instanceof client.Registry) {
-      circuits = undefined;
       registry = circuits;
+      circuits = undefined;
     }
 
     this._registry = registry || client.register;
