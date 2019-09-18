@@ -101,7 +101,7 @@ test('The add function provides access to metrics for all circuits', t => {
   t.end();
 });
 
-test('The add function takes an object instead of just an Array', t => {
+test('The add function accepts zero parameters', t => {
   t.plan(1);
   const prometheus = new PrometheusMetrics();
   prometheus.add();
