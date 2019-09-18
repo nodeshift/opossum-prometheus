@@ -1,6 +1,6 @@
 {
   "name": "opossum-prometheus",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Prometheus metrics for opossum circuit breaker",
   "main": "index.js",
   "scripts": {
