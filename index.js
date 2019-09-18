@@ -23,6 +23,7 @@ class PrometheusMetrics {
     this._registry = registry || client.register;
     this._client = client;
     this.counters = [];
+    this.summaries = [];
 
     if (!registry) {
       this.interval = this._client
@@ -52,6 +53,20 @@ class PrometheusMetrics {
           counter.inc();
         });
         this.counters.push(counter);
+
+        if (eventName === 'success' || eventName === 'failure' ) {
+          // not the timeout event because runtime == timeout
+          const summary = new this._client.Summary({
+            name: `${prefix}${eventName}_perf`,
+            help:
+              `A summary of the ${circuit.name} circuit's ${eventName} event`,
+            registers: [this._registry]
+          });
+          circuit.on(eventName, (result, runTime) => {
+            summary.observe(runTime);
+          });
+          this.summaries.push(summary);
+        }
       }
     });
   }
