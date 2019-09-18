@@ -54,7 +54,7 @@ class PrometheusMetrics {
         });
         this.counters.push(counter);
 
-        if (eventName === 'success' || eventName === 'failure' ) {
+        if (eventName === 'success' || eventName === 'failure') {
           // not the timeout event because runtime == timeout
           const summary = new this._client.Summary({
             name: `${prefix}${eventName}_perf`,
