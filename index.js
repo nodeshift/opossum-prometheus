@@ -15,11 +15,10 @@ function normalizePrefix (prefixName) {
 
 class PrometheusMetrics {
   constructor (circuits, registry) {
-    if (!circuits) {
-      throw new Error('A circuit or a list of circuits is required');
+    if (circuits instanceof client.Registry) {
+      registry = circuits;
+      circuits = undefined;
     }
-
-    circuits = Array.isArray(circuits) ? circuits : [circuits];
 
     this._registry = registry || client.register;
     this._client = client;
@@ -30,6 +29,16 @@ class PrometheusMetrics {
         .collectDefaultMetrics({ prefix: 'opossum_', timeout: 5000 });
     }
 
+    if (circuits) {
+      this.add(circuits);
+    }
+  }
+
+  add (circuits) {
+    if (!circuits) {
+      return;
+    }
+    circuits = Array.isArray(circuits) ? circuits : [circuits];
     let prefix;
     circuits.forEach(circuit => {
       prefix = normalizePrefix(circuit.name);
