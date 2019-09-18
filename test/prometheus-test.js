@@ -213,7 +213,7 @@ test('Default prometheus metrics are enabled without circuit', t => {
   t.plan(names.length);
   for (const name of names) {
     const match = new RegExp(`opossum_${name}`);
-    t.ok(match.test(metrics), name);
+    t.notOk(match.test(metrics), name);
   }
   prometheus.clear();
   t.end();
