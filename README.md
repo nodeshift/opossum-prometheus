@@ -11,6 +11,11 @@ This module provides [Prometheus](https://prometheus.io/) metrics for
 it with your circuit breakers, just pass them in to the `PrometheusMetrics`
 constructor.
 
+For each circuit breaker, the metrics are:
+
+  * a `prometheus counter` for each event name
+  * a `prometheus summary` for the events `success`, `failed` execution time.
+
 Example:
 
 ```js
