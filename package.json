@@ -35,6 +35,6 @@
     "tape": "^4.11.0"
   },
   "dependencies": {
-    "prom-client": "^11.5.3"
+    "prom-client": "^12.0.0"
   }
 }
