@@ -10,7 +10,7 @@ const client = require('prom-client');
 // More details:
 // https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels
 function normalizePrefix (prefixName) {
-  return `circuit_${prefixName.replace(/[ |-]/g, '_')}_`;
+  return `circuit_${prefixName.replace(/[ |-]/g, '_')}`;
 }
 
 class PrometheusMetrics {
@@ -43,29 +43,32 @@ class PrometheusMetrics {
     let prefix;
     circuits.forEach(circuit => {
       prefix = normalizePrefix(circuit.name);
+      const counter = new this._client.Counter({
+        name: `${prefix}`,
+        help: `A count of the ${circuit.name} circuit' events`,
+        registers: [this._registry],
+        labelNames: ['event']
+      });
+      this.counters.push(counter);
+
+      const summary = new this._client.Summary({
+        name: `${prefix}_perf`,
+        help: `A summary of the ${circuit.name} circuit's events`,
+        registers: [this._registry],
+        labelNames: ['event']
+      });
+      this.summaries.push(summary);
+
       for (const eventName of circuit.eventNames()) {
-        const counter = new this._client.Counter({
-          name: `${prefix}${eventName}`,
-          help: `A count of the ${circuit.name} circuit's ${eventName} event`,
-          registers: [this._registry]
-        });
         circuit.on(eventName, _ => {
-          counter.inc();
+          counter.labels(eventName).inc();
         });
-        this.counters.push(counter);
 
         if (eventName === 'success' || eventName === 'failure') {
           // not the timeout event because runtime == timeout
-          const summary = new this._client.Summary({
-            name: `${prefix}${eventName}_perf`,
-            help:
-              `A summary of the ${circuit.name} circuit's ${eventName} event`,
-            registers: [this._registry]
-          });
           circuit.on(eventName, (result, runTime) => {
-            summary.observe(runTime);
+            summary.labels(eventName).observe(runTime);
           });
-          this.summaries.push(summary);
         }
       }
     });
