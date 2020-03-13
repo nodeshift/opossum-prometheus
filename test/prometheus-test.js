@@ -30,33 +30,37 @@ test('The factory function accept no parameter', t => {
   t.end();
 });
 
-test('The factory function takes an object instead of just an Array', t => {
+test('The factory function takes an object instead of just an Array', async t => {
   t.plan(3);
   const c1 = new CircuitBreaker(passFail, { name: 'fred' });
   const prometheus = new PrometheusMetrics(c1);
+  await c1.fire(1);
   t.equal(c1.name, 'fred');
-  t.ok(/circuit_fred_/.test(prometheus.metrics));
-  t.ok(/circuit_fred_.*perf/.test(prometheus.metrics));
+  t.ok(/circuit.*fred/.test(prometheus.metrics));
+  t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
   prometheus.clear();
   t.end();
 });
 
-test('The factory function provides access to metrics for all circuits', t => {
-  t.plan(6);
-  const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-  const c2 = new CircuitBreaker(passFail, { name: 'bob' });
-  const prometheus = new PrometheusMetrics([c1, c2]);
-  t.equal(c1.name, 'fred');
-  t.equal(c2.name, 'bob');
-  t.ok(/circuit_fred_/.test(prometheus.metrics));
-  t.ok(/circuit_fred_.*perf/.test(prometheus.metrics));
-  t.ok(/circuit_bob_/.test(prometheus.metrics));
-  t.ok(/circuit_bob_.*perf/.test(prometheus.metrics));
-  prometheus.clear();
-  t.end();
-});
+test('The factory function provides access to metrics for all circuits',
+  async t => {
+    t.plan(6);
+    const c1 = new CircuitBreaker(passFail, { name: 'fred' });
+    const c2 = new CircuitBreaker(passFail, { name: 'bob' });
+    const prometheus = new PrometheusMetrics([c1, c2]);
+    await c1.fire(1);
+    await c2.fire(1);
+    t.equal(c1.name, 'fred');
+    t.equal(c2.name, 'bob');
+    t.ok(/circuit.*fred/.test(prometheus.metrics));
+    t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
+    t.ok(/circuit.*bob/.test(prometheus.metrics));
+    t.ok(/circuit_perf.*bob/.test(prometheus.metrics));
+    prometheus.clear();
+    t.end();
+  });
 
-test('The factory function uses a custom prom-client registry', t => {
+test('The factory function uses a custom prom-client registry', async t => {
   t.plan(10);
   const registry = new Registry();
   const c1 = new CircuitBreaker(passFail, {
@@ -66,66 +70,73 @@ test('The factory function uses a custom prom-client registry', t => {
     name: 'bob'
   });
   const prometheus = new PrometheusMetrics([c1, c2], registry);
+  await c1.fire(1);
+  await c2.fire(1);
   t.equal(c1.name, 'fred');
   t.equal(c2.name, 'bob');
-  t.ok(/circuit_fred_/.test(registry.metrics()));
-  t.ok(/circuit_fred_.*perf/.test(registry.metrics()));
-  t.ok(/circuit_bob_/.test(registry.metrics()));
-  t.ok(/circuit_bob_.*perf/.test(registry.metrics()));
-  t.ok(/circuit_fred_/.test(prometheus.metrics));
-  t.ok(/circuit_fred_.*perf/.test(prometheus.metrics));
-  t.ok(/circuit_bob_/.test(prometheus.metrics));
-  t.ok(/circuit_bob_.*perf/.test(prometheus.metrics));
+  t.ok(/circuit.*fred/.test(registry.metrics()));
+  t.ok(/circuit_perf.*fred/.test(registry.metrics()));
+  t.ok(/circuit.*bob/.test(registry.metrics()));
+  t.ok(/circuit_perf.*bob/.test(registry.metrics()));
+  t.ok(/circuit.*bob/.test(prometheus.metrics));
+  t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
+  t.ok(/circuit.*bob/.test(prometheus.metrics));
+  t.ok(/circuit_perf.*bob/.test(prometheus.metrics));
   prometheus.clear();
   t.end();
 });
 
-test('The add function takes an object instead of just an Array', t => {
+test('The add function takes an object instead of just an Array', async t => {
   t.plan(3);
   const c1 = new CircuitBreaker(passFail, { name: 'fred' });
   const prometheus = new PrometheusMetrics();
   prometheus.add(c1);
+  await c1.fire(1);
   t.equal(c1.name, 'fred');
-  t.ok(/circuit_fred_/.test(prometheus.metrics));
-  t.ok(/circuit_fred_.*perf/.test(prometheus.metrics));
+  t.ok(/circuit.*fred.*/.test(prometheus.metrics));
+  t.ok(/circuit_perf.*fred.*/.test(prometheus.metrics));
   prometheus.clear();
   t.end();
 });
 
-test('The add function provides access to metrics for all circuits', t => {
-  t.plan(9);
-  const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-  const c2 = new CircuitBreaker(passFail, { name: 'bob' });
-  const c3 = new CircuitBreaker(passFail, { name: 'foo' });
-  const prometheus = new PrometheusMetrics([c1]);
-  prometheus.add([c2, c3]);
-  t.equal(c1.name, 'fred');
-  t.equal(c2.name, 'bob');
-  t.equal(c3.name, 'foo');
-  t.ok(/circuit_fred_/.test(prometheus.metrics));
-  t.ok(/circuit_fred_.*perf/.test(prometheus.metrics));
-  t.ok(/circuit_bob_/.test(prometheus.metrics));
-  t.ok(/circuit_bob_.*perf/.test(prometheus.metrics));
-  t.ok(/circuit_foo_/.test(prometheus.metrics));
-  t.ok(/circuit_foo_.*perf/.test(prometheus.metrics));
-  prometheus.clear();
-  t.end();
-});
+test('The add function provides access to metrics for all circuits',
+  async t => {
+    t.plan(9);
+    const c1 = new CircuitBreaker(passFail, { name: 'fred' });
+    const c2 = new CircuitBreaker(passFail, { name: 'bob' });
+    const c3 = new CircuitBreaker(passFail, { name: 'foo' });
+    const prometheus = new PrometheusMetrics([c1]);
+    prometheus.add([c2, c3]);
+    await c1.fire(1);
+    await c2.fire(1);
+    await c3.fire(1);
+    t.equal(c1.name, 'fred');
+    t.equal(c2.name, 'bob');
+    t.equal(c3.name, 'foo');
+    t.ok(/circuit.*fred/.test(prometheus.metrics));
+    t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
+    t.ok(/circuit.*bob/.test(prometheus.metrics));
+    t.ok(/circuit_perf.*bob/.test(prometheus.metrics));
+    t.ok(/circuit.*foo/.test(prometheus.metrics));
+    t.ok(/circuit_perf.*foo/.test(prometheus.metrics));
+    prometheus.clear();
+    t.end();
+  });
 
 test('The add function called without parameter do nothing', t => {
   t.plan(1);
   const prometheus = new PrometheusMetrics();
   prometheus.add();
-  t.notOk(/circuit_/.test(prometheus.metrics));
+  t.ok(/circuit/.test(prometheus.metrics));
   prometheus.clear();
   t.end();
 });
 
 test('Circuit fire/success/failure are counted', t => {
   const circuit = new CircuitBreaker(passFail);
-  const fire = /circuit_passFail_fire 2/;
-  const success = /circuit_passFail_success 1/;
-  const failure = /circuit_passFail_failure 1/;
+  const fire = /circuit\{name="passFail",event="fire"\} 2/;
+  const success = /circuit\{name="passFail",event="success"\} 1/;
+  const failure = /circuit\{name="passFail",event="failure"\} 1/;
   const prometheus = new PrometheusMetrics([circuit]);
   t.plan(3);
   circuit.fire(1)
@@ -142,11 +153,14 @@ test('Circuit fire/success/failure are counted', t => {
 
 test('Metrics are enabled for all circuit events', t => {
   const circuit = new CircuitBreaker(passFail);
+  circuit.on = (event, callback) => {
+    callback(null, 1);
+  };
   const prometheus = new PrometheusMetrics([circuit]);
   const metrics = prometheus.metrics;
   t.plan(circuit.eventNames().length);
   for (const name of circuit.eventNames()) {
-    const match = new RegExp(`circuit_passFail_${name}`);
+    const match = new RegExp(`circuit{name="passFail",event="${name}"}`);
     t.ok(match.test(metrics), name);
   }
   prometheus.clear();

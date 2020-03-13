@@ -9,9 +9,6 @@ const client = require('prom-client');
 // circuit name to pass the tests.
 // More details:
 // https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels
-function normalizePrefix (prefixName) {
-  return `circuit_${prefixName.replace(/[ |-]/g, '_')}_`;
-}
 
 class PrometheusMetrics {
   constructor (circuits, registry) {
@@ -22,8 +19,19 @@ class PrometheusMetrics {
 
     this._registry = registry || client.register;
     this._client = client;
-    this.counters = [];
-    this.summaries = [];
+    this._counter = new this._client.Counter({
+      name: `circuit`,
+      help: `A count of all circuit' events`,
+      registers: [this._registry],
+      labelNames: ['name', 'event']
+    });
+
+    this._summary = new this._client.Summary({
+      name: `circuit_perf`,
+      help: `A summary of all circuit's events`,
+      registers: [this._registry],
+      labelNames: ['name', 'event']
+    });
 
     if (!registry) {
       this.interval = this._client
@@ -40,32 +48,18 @@ class PrometheusMetrics {
       return;
     }
     circuits = Array.isArray(circuits) ? circuits : [circuits];
-    let prefix;
+
     circuits.forEach(circuit => {
-      prefix = normalizePrefix(circuit.name);
       for (const eventName of circuit.eventNames()) {
-        const counter = new this._client.Counter({
-          name: `${prefix}${eventName}`,
-          help: `A count of the ${circuit.name} circuit's ${eventName} event`,
-          registers: [this._registry]
-        });
         circuit.on(eventName, _ => {
-          counter.inc();
+          this._counter.labels(circuit.name, eventName).inc();
         });
-        this.counters.push(counter);
 
         if (eventName === 'success' || eventName === 'failure') {
           // not the timeout event because runtime == timeout
-          const summary = new this._client.Summary({
-            name: `${prefix}${eventName}_perf`,
-            help:
-              `A summary of the ${circuit.name} circuit's ${eventName} event`,
-            registers: [this._registry]
-          });
           circuit.on(eventName, (result, runTime) => {
-            summary.observe(runTime);
+            this._summary.labels(circuit.name, eventName).observe(runTime);
           });
-          this.summaries.push(summary);
         }
       }
     });
