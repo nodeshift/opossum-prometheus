@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/lholmquist/opossum-prometheus/compare/v0.0.4...v0.1.0) (2020-03-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* Changes event metrics to use labels rather than seporate metrics
+* Changes metrics to use labels for circuit name rather than seporate metrics
+
+Co-authored-by: martlandh <HarryMartland@Rentalcars.com>
+
+### Features
+
+* Change event name to be a label ([#15](https://github.com/lholmquist/opossum-prometheus/issues/15)) ([075b033](https://github.com/lholmquist/opossum-prometheus/commit/075b033))
+
 ### [0.0.4](https://github.com/lholmquist/opossum-prometheus/compare/v0.0.3...v0.0.4) (2019-10-02)
 
 
