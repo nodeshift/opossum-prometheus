@@ -29,7 +29,7 @@
     "codacy-coverage": "^3.4.0",
     "nyc": "^15.0.0",
     "opossum": "^5.0.0",
-    "standard-version": "^7.0.0",
+    "standard-version": "^7.1.0",
     "standardx": "^5.0.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.11.0"
