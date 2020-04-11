@@ -268,3 +268,44 @@ test('Node.js specific metrics are enabled', t => {
   prometheus.clear();
   t.end();
 });
+
+test('Performance metrics are not created when disabled',
+  async t => {
+    t.plan(3);
+    const c1 = new CircuitBreaker(passFail, { name: 'fred' });
+    const prometheus = new PrometheusMetrics([c1], null,
+      { exposePerformanceMetrics: false });
+    await c1.fire(1);
+    t.equal(c1.name, 'fred');
+    t.ok(/circuit.*fred/.test(prometheus.metrics));
+    t.notOk(/circuit_perf.*fred/.test(prometheus.metrics));
+    prometheus.clear();
+    t.end();
+  });
+
+test('Performance metrics are created when not configured in options',
+  async t => {
+    t.plan(3);
+    const c1 = new CircuitBreaker(passFail, { name: 'fred' });
+    const prometheus = new PrometheusMetrics([c1], null, { });
+    await c1.fire(1);
+    t.equal(c1.name, 'fred');
+    t.ok(/circuit.*fred/.test(prometheus.metrics));
+    t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
+    prometheus.clear();
+    t.end();
+  });
+
+test('Performance metrics are created when enabled in options',
+  async t => {
+    t.plan(3);
+    const c1 = new CircuitBreaker(passFail, { name: 'fred' });
+    const prometheus = new PrometheusMetrics([c1], null,
+      { exposePerformanceMetrics: true });
+    await c1.fire(1);
+    t.equal(c1.name, 'fred');
+    t.ok(/circuit.*fred/.test(prometheus.metrics));
+    t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
+    prometheus.clear();
+    t.end();
+  });

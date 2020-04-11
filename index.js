@@ -11,13 +11,14 @@ const client = require('prom-client');
 // https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels
 
 class PrometheusMetrics {
-  constructor (circuits, registry) {
+  constructor (circuits, registry, options) {
     if (circuits instanceof client.Registry) {
       registry = circuits;
       circuits = undefined;
     }
 
     this._registry = registry || client.register;
+    this._options = options;
     this._client = client;
     this._counter = new this._client.Counter({
       name: `circuit`,
@@ -26,12 +27,14 @@ class PrometheusMetrics {
       labelNames: ['name', 'event']
     });
 
-    this._summary = new this._client.Summary({
-      name: `circuit_perf`,
-      help: `A summary of all circuit's events`,
-      registers: [this._registry],
-      labelNames: ['name', 'event']
-    });
+    if (this.exposePerformanceMetrics()) {
+      this._summary = new this._client.Summary({
+        name: `circuit_perf`,
+        help: `A summary of all circuit's events`,
+        registers: [this._registry],
+        labelNames: ['name', 'event']
+      });
+    }
 
     if (!registry) {
       this.interval = this._client
@@ -41,6 +44,12 @@ class PrometheusMetrics {
     if (circuits) {
       this.add(circuits);
     }
+  }
+
+  exposePerformanceMetrics () {
+    return this._options === undefined ||
+      this._options.exposePerformanceMetrics === undefined ||
+      this._options.exposePerformanceMetrics;
   }
 
   add (circuits) {
@@ -55,7 +64,8 @@ class PrometheusMetrics {
           this._counter.labels(circuit.name, eventName).inc();
         });
 
-        if (eventName === 'success' || eventName === 'failure') {
+        if (this.exposePerformanceMetrics() &&
+          (eventName === 'success' || eventName === 'failure')) {
           // not the timeout event because runtime == timeout
           circuit.on(eventName, (result, runTime) => {
             this._summary.labels(circuit.name, eventName).observe(runTime);
