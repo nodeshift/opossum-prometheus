@@ -74,5 +74,3 @@ new PrometheusMetrics(options)
 |`circuits`                |A list or individual circuit breaker to create metrics for              |No circuits   |
 |`registry`                |An existing registry to use for prometheus metrics                      |A new registry|
 |`exposePerformanceMetrics`|Measure the performance of breakers and report them through the registry|true          |
-
-
