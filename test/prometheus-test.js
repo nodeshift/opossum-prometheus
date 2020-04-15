@@ -33,7 +33,7 @@ test('The factory function accept no parameter', t => {
 test('The factory function takes an object instead of just an Array', async t => {
   t.plan(3);
   const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-  const prometheus = new PrometheusMetrics(c1);
+  const prometheus = new PrometheusMetrics({ circuits: c1 });
   await c1.fire(1);
   t.equal(c1.name, 'fred');
   t.ok(/circuit.*fred/.test(prometheus.metrics));
@@ -47,7 +47,7 @@ test('The factory function provides access to metrics for all circuits',
     t.plan(6);
     const c1 = new CircuitBreaker(passFail, { name: 'fred' });
     const c2 = new CircuitBreaker(passFail, { name: 'bob' });
-    const prometheus = new PrometheusMetrics([c1, c2]);
+    const prometheus = new PrometheusMetrics({ circuits: [c1, c2] });
     await c1.fire(1);
     await c2.fire(1);
     t.equal(c1.name, 'fred');
@@ -69,8 +69,10 @@ test('The factory function uses a custom prom-client registry', async t => {
   const c2 = new CircuitBreaker(passFail, {
     name: 'bob'
   });
-  const prometheus = new PrometheusMetrics([c1, c2],
-    { registry: registry });
+  const prometheus = new PrometheusMetrics({
+    circuits: [c1, c2],
+    registry: registry
+  });
   await c1.fire(1);
   await c2.fire(1);
   t.equal(c1.name, 'fred');
@@ -106,7 +108,7 @@ test('The add function provides access to metrics for all circuits',
     const c1 = new CircuitBreaker(passFail, { name: 'fred' });
     const c2 = new CircuitBreaker(passFail, { name: 'bob' });
     const c3 = new CircuitBreaker(passFail, { name: 'foo' });
-    const prometheus = new PrometheusMetrics([c1]);
+    const prometheus = new PrometheusMetrics({ circuits: [c1] });
     prometheus.add([c2, c3]);
     await c1.fire(1);
     await c2.fire(1);
@@ -138,7 +140,7 @@ test('Circuit fire/success/failure are counted', t => {
   const fire = /circuit\{name="passFail",event="fire"\} 2/;
   const success = /circuit\{name="passFail",event="success"\} 1/;
   const failure = /circuit\{name="passFail",event="failure"\} 1/;
-  const prometheus = new PrometheusMetrics([circuit]);
+  const prometheus = new PrometheusMetrics({ circuits: [circuit] });
   t.plan(3);
   circuit.fire(1)
     .then(_ => circuit.fire(-1))
@@ -157,7 +159,7 @@ test('Metrics are enabled for all circuit events', t => {
   circuit.on = (event, callback) => {
     callback(null, 1);
   };
-  const prometheus = new PrometheusMetrics([circuit]);
+  const prometheus = new PrometheusMetrics({ circuits: [circuit] });
   const metrics = prometheus.metrics;
   t.plan(circuit.eventNames().length);
   for (const name of circuit.eventNames()) {
@@ -170,7 +172,7 @@ test('Metrics are enabled for all circuit events', t => {
 
 test('Default prometheus metrics are enabled', t => {
   const circuit = new CircuitBreaker(passFail);
-  const prometheus = new PrometheusMetrics([circuit]);
+  const prometheus = new PrometheusMetrics({ circuits: [circuit] });
   const metrics = prometheus.metrics;
   const names = [
     'process_cpu_seconds_total',
@@ -193,8 +195,10 @@ test('Default prometheus metrics are enabled', t => {
 test('Should not add default metrics to custom registry', t => {
   const registry = new Registry();
   const circuit = new CircuitBreaker(passFail);
-  const prometheus = new PrometheusMetrics([circuit],
-    { registry: registry });
+  const prometheus = new PrometheusMetrics({
+    circuits: [circuit],
+    registry: registry
+  });
   const metrics = prometheus.metrics;
   const names = [
     'process_cpu_seconds_total',
@@ -216,7 +220,7 @@ test('Should not add default metrics to custom registry', t => {
 
 test('Default prometheus metrics are enabled without circuit', t => {
   const registry = new Registry();
-  const prometheus = new PrometheusMetrics(registry);
+  const prometheus = new PrometheusMetrics({ registry: registry });
   const metrics = prometheus.metrics;
   const names = [
     'nodejs_eventloop_lag',
@@ -248,7 +252,7 @@ test('Default prometheus metrics are enabled without circuit', t => {
 
 test('Node.js specific metrics are enabled', t => {
   const circuit = new CircuitBreaker(passFail);
-  const prometheus = new PrometheusMetrics([circuit]);
+  const prometheus = new PrometheusMetrics({ circuits: [circuit] });
   const metrics = prometheus.metrics;
   const names = [
     'nodejs_eventloop_lag',
@@ -275,8 +279,10 @@ test('Performance metrics are not created when disabled',
   async t => {
     t.plan(3);
     const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-    const prometheus = new PrometheusMetrics([c1],
-      { exposePerformanceMetrics: false });
+    const prometheus = new PrometheusMetrics({
+      circuits: [c1],
+      exposePerformanceMetrics: false
+    });
     await c1.fire(1);
     t.equal(c1.name, 'fred');
     t.ok(/circuit.*fred/.test(prometheus.metrics));
@@ -289,7 +295,7 @@ test('Performance metrics are created when not configured in options',
   async t => {
     t.plan(3);
     const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-    const prometheus = new PrometheusMetrics([c1], { });
+    const prometheus = new PrometheusMetrics({ circuits: [c1] });
     await c1.fire(1);
     t.equal(c1.name, 'fred');
     t.ok(/circuit.*fred/.test(prometheus.metrics));
@@ -302,8 +308,10 @@ test('Performance metrics are created when enabled in options',
   async t => {
     t.plan(3);
     const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-    const prometheus = new PrometheusMetrics([c1],
-      { exposePerformanceMetrics: true });
+    const prometheus = new PrometheusMetrics({
+      circuits: [c1],
+      exposePerformanceMetrics: true
+    });
     await c1.fire(1);
     t.equal(c1.name, 'fred');
     t.ok(/circuit.*fred/.test(prometheus.metrics));
