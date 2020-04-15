@@ -58,6 +58,20 @@ const registry = new Registry();
 
 // create a circuit
 const circuit = new CircuitBreaker(functionThatMightFail);
-const metrics = new PrometheusMetrics(circuit, registry)
+const metrics = new PrometheusMetrics(circuit, { registry: registry })
 ```
+
+#### Options
+The second argument of the `PrometheusMetrics` constructor is an options object.
+
+```js
+const options = {};
+new PrometheusMetrics(circuits, options)
+```
+
+|Name|Description|Default|
+|---|---|---|
+|`registry`|An existing registry to use for prometheus metrics|A new registry|
+|`exposePerformanceMetrics`|Measure the performance of breakers and report them through the registry|true|
+
 
