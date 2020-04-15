@@ -61,7 +61,7 @@ const circuit = new CircuitBreaker(functionThatMightFail);
 const metrics = new PrometheusMetrics({ circuits: [circuit], registry: registry })
 ```
 
-#### Options
+## Options
 The second argument of the `PrometheusMetrics` constructor is an options object.
 
 ```js
@@ -69,10 +69,10 @@ const options = {};
 new PrometheusMetrics(options)
 ```
 
-|Name|Description|Default|
-|---|---|---|
-|`circuits`|A list or individual circuit breaker to create metrics for|No circuits|
-|`registry`|An existing registry to use for prometheus metrics|A new registry|
-|`exposePerformanceMetrics`|Measure the performance of breakers and report them through the registry|true|
+|Name                      |Description                                                             |Default       |
+|--------------------------|------------------------------------------------------------------------|--------------|
+|`circuits`                |A list or individual circuit breaker to create metrics for              |No circuits   |
+|`registry`                |An existing registry to use for prometheus metrics                      |A new registry|
+|`exposePerformanceMetrics`|Measure the performance of breakers and report them through the registry|true          |
 
 
