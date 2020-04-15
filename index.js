@@ -11,7 +11,8 @@ const client = require('prom-client');
 // https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels
 
 class PrometheusMetrics {
-  constructor (circuits, registry, options) {
+  constructor (circuits, options = {}) {
+    var registry = options.registry;
     if (circuits instanceof client.Registry) {
       registry = circuits;
       circuits = undefined;

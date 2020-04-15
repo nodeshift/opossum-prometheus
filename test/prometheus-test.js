@@ -69,7 +69,8 @@ test('The factory function uses a custom prom-client registry', async t => {
   const c2 = new CircuitBreaker(passFail, {
     name: 'bob'
   });
-  const prometheus = new PrometheusMetrics([c1, c2], registry);
+  const prometheus = new PrometheusMetrics([c1, c2],
+    { registry: registry });
   await c1.fire(1);
   await c2.fire(1);
   t.equal(c1.name, 'fred');
@@ -192,7 +193,8 @@ test('Default prometheus metrics are enabled', t => {
 test('Should not add default metrics to custom registry', t => {
   const registry = new Registry();
   const circuit = new CircuitBreaker(passFail);
-  const prometheus = new PrometheusMetrics([circuit], registry);
+  const prometheus = new PrometheusMetrics([circuit],
+    { registry: registry });
   const metrics = prometheus.metrics;
   const names = [
     'process_cpu_seconds_total',
@@ -273,7 +275,7 @@ test('Performance metrics are not created when disabled',
   async t => {
     t.plan(3);
     const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-    const prometheus = new PrometheusMetrics([c1], null,
+    const prometheus = new PrometheusMetrics([c1],
       { exposePerformanceMetrics: false });
     await c1.fire(1);
     t.equal(c1.name, 'fred');
@@ -287,7 +289,7 @@ test('Performance metrics are created when not configured in options',
   async t => {
     t.plan(3);
     const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-    const prometheus = new PrometheusMetrics([c1], null, { });
+    const prometheus = new PrometheusMetrics([c1], { });
     await c1.fire(1);
     t.equal(c1.name, 'fred');
     t.ok(/circuit.*fred/.test(prometheus.metrics));
@@ -300,7 +302,7 @@ test('Performance metrics are created when enabled in options',
   async t => {
     t.plan(3);
     const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-    const prometheus = new PrometheusMetrics([c1], null,
+    const prometheus = new PrometheusMetrics([c1],
       { exposePerformanceMetrics: true });
     await c1.fire(1);
     t.equal(c1.name, 'fred');
