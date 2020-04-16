@@ -62,7 +62,7 @@ const metrics = new PrometheusMetrics(circuit, { registry: registry })
 ```
 
 ## Options
-The `PrometheusMetrics` constructor takes an options object as detailed below.
+The second argument of the `PrometheusMetrics` constructor is an options object.
 
 ```js
 const options = {};
