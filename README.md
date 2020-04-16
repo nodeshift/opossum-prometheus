@@ -69,7 +69,7 @@ const options = {};
 new PrometheusMetrics(circuits, options)
 ```
 
-|Name                      |Description                                                             |Default       |
-|--------------------------|------------------------------------------------------------------------|--------------|
-|`registry`                |An existing registry to use for prometheus metrics                      |A new registry|
-|`exposePerformanceMetrics`|Measure the performance of breakers and report them through the registry|true          |
+|Name                      |Description                                                             |Default                                                                                                |
+|--------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+|`registry`                |An existing registry to use for prometheus metrics                      |`undefined` - The default prometheus registry will be used and default system metrics will be collected|
+|`exposePerformanceMetrics`|Measure the performance of breakers and report them through the registry|`true`                                                                                                 |
