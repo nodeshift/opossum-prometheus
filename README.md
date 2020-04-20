@@ -73,4 +73,3 @@ new PrometheusMetrics(options)
 |--------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
 |`circuits`                |A list or individual circuit breaker to create metrics for              |No circuits                                                                                            |
 |`registry`                |An existing registry to use for prometheus metrics                      |`undefined` - The default prometheus registry will be used and default system metrics will be collected|
-|`exposePerformanceMetrics`|Measure the performance of breakers and report them through the registry|true                                                                                                   |
