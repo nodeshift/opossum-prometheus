@@ -11,13 +11,8 @@ const client = require('prom-client');
 // https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels
 
 class PrometheusMetrics {
-  constructor (circuits, registry) {
-    if (circuits instanceof client.Registry) {
-      registry = circuits;
-      circuits = undefined;
-    }
-
-    this._registry = registry || client.register;
+  constructor (options = {}) {
+    this._registry = options.registry || client.register;
     this._client = client;
     this._counter = new this._client.Counter({
       name: `circuit`,
@@ -33,13 +28,13 @@ class PrometheusMetrics {
       labelNames: ['name', 'event']
     });
 
-    if (!registry) {
+    if (!options.registry) {
       this.interval = this._client
         .collectDefaultMetrics({ prefix: 'opossum_', timeout: 5000 });
     }
 
-    if (circuits) {
-      this.add(circuits);
+    if (options.circuits) {
+      this.add(options.circuits);
     }
   }
 

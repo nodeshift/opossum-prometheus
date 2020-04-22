@@ -27,7 +27,7 @@ Example:
   const c2 = new CircuitBreaker(someOtherfunction);
 
   // Provide them to the constructor
-  const prometheus = new PrometheusMetrics([c1, c2]);
+  const prometheus = new PrometheusMetrics({ circuits: [c1, c2] });
 
   //...
   // Provide other circuit breaker later
@@ -58,6 +58,18 @@ const registry = new Registry();
 
 // create a circuit
 const circuit = new CircuitBreaker(functionThatMightFail);
-const metrics = new PrometheusMetrics(circuit, registry)
+const metrics = new PrometheusMetrics({ circuits: [circuit], registry: registry })
 ```
 
+## Options
+The `PrometheusMetrics` constructor takes an options object as detailed below.
+
+```js
+const options = {};
+new PrometheusMetrics(options)
+```
+
+|Name      |Description                                               |Default                                                                                                |
+|----------|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+|`circuits`|A list or individual circuit breaker to create metrics for|No circuits                                                                                            |
+|`registry`|An existing registry to use for prometheus metrics        |`undefined` - The default prometheus registry will be used and default system metrics will be collected|
