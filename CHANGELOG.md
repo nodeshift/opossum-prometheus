@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/lholmquist/opossum-prometheus/compare/v0.1.0...v0.2.0) (2020-04-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* Options object is now used to configure custom registry and initial circuits
+
+* docs: Updates and adds documentation for options object configuration
+
+### Features
+
+* adds option for performance metrics so they can be disabled, default is enabled ([#20](https://github.com/lholmquist/opossum-prometheus/issues/20)) ([2437eca](https://github.com/lholmquist/opossum-prometheus/commit/2437eca65e7e5d55d3685f213c24e589827d2899))
+* Use options object for all configuration ([#19](https://github.com/lholmquist/opossum-prometheus/issues/19)) ([b353a59](https://github.com/lholmquist/opossum-prometheus/commit/b353a5907212a5eabae420ff4ef06c105f953d3f))
+
+
+### Bug Fixes
+
+* upgrade standard-version from 7.0.0 to 7.1.0 ([#17](https://github.com/lholmquist/opossum-prometheus/issues/17)) ([2b68517](https://github.com/lholmquist/opossum-prometheus/commit/2b68517ae6902837ff9d94cbcbab11621fba920d))
+* upgrade tape from 4.11.0 to 4.13.2 ([#16](https://github.com/lholmquist/opossum-prometheus/issues/16)) ([6233d53](https://github.com/lholmquist/opossum-prometheus/commit/6233d53041727d8b44126b061a18cc411642bb34))
+
 ## [0.1.0](https://github.com/lholmquist/opossum-prometheus/compare/v0.0.4...v0.1.0) (2020-03-13)
 
 
