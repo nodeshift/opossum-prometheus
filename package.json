@@ -27,7 +27,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "codacy-coverage": "^3.4.0",
-    "nyc": "^15.0.0",
+    "nyc": "^15.0.1",
     "opossum": "^5.0.0",
     "standard-version": "^7.1.0",
     "standardx": "^5.0.0",
