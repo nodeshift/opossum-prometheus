@@ -1,0 +1,44 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - codacy-coverage > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - tap-spec > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standard-version > conventional-changelog-conventionalcommits > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - codacy-coverage > request-promise > request-promise-core > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - nyc > istanbul-lib-instrument > @babel/core > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standard-version > conventional-changelog > conventional-changelog-conventionalcommits > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standard-version > conventional-recommended-bump > conventional-commits-parser > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standard-version > conventional-changelog > conventional-changelog-core > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standardx > standard > eslint > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standard-version > conventional-changelog > conventional-changelog-core > conventional-changelog-writer > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standard-version > conventional-changelog > conventional-changelog-core > conventional-commits-parser > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standardx > standard > eslint > inquirer > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - standardx > standard > eslint > table > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-01T04:06:53.254Z'
