@@ -30,17 +30,18 @@ test('The factory function accept no parameter', t => {
   t.end();
 });
 
-test('The factory function takes an object instead of just an Array', async t => {
-  t.plan(3);
-  const c1 = new CircuitBreaker(passFail, { name: 'fred' });
-  const prometheus = new PrometheusMetrics({ circuits: c1 });
-  await c1.fire(1);
-  t.equal(c1.name, 'fred');
-  t.ok(/circuit.*fred/.test(prometheus.metrics));
-  t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
-  prometheus.clear();
-  t.end();
-});
+test('The factory function takes an object instead of just an Array',
+  async t => {
+    t.plan(3);
+    const c1 = new CircuitBreaker(passFail, { name: 'fred' });
+    const prometheus = new PrometheusMetrics({ circuits: c1 });
+    await c1.fire(1);
+    t.equal(c1.name, 'fred');
+    t.ok(/circuit.*fred/.test(prometheus.metrics));
+    t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
+    prometheus.clear();
+    t.end();
+  });
 
 test('The factory function provides access to metrics for all circuits',
   async t => {
@@ -316,6 +317,27 @@ test('Performance metrics are created when enabled in options',
     t.equal(c1.name, 'fred');
     t.ok(/circuit.*fred/.test(prometheus.metrics));
     t.ok(/circuit_perf.*fred/.test(prometheus.metrics));
+    prometheus.clear();
+    t.end();
+  });
+
+test('The factory function provides metric prefix and it append to metric name',
+  async t => {
+    t.plan(6);
+    const c1 = new CircuitBreaker(passFail, { name: 'fred' });
+    const c2 = new CircuitBreaker(passFail, { name: 'bob' });
+    const prometheus = new PrometheusMetrics({
+      circuits: [c1, c2],
+      metricPrefix: 'some_prefix_'
+    });
+    await c1.fire(1);
+    await c2.fire(1);
+    t.equal(c1.name, 'fred');
+    t.equal(c2.name, 'bob');
+    t.ok(/some_prefix_circuit.*fred/.test(prometheus.metrics));
+    t.ok(/some_prefix_circuit_perf.*fred/.test(prometheus.metrics));
+    t.ok(/some_prefix_circuit.*bob/.test(prometheus.metrics));
+    t.ok(/some_prefix_circuit_perf.*bob/.test(prometheus.metrics));
     prometheus.clear();
     t.end();
   });
