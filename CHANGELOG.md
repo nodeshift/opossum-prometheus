@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/lholmquist/opossum-prometheus/compare/v0.2.0...v0.3.0) (2020-09-02)
+
+
+### Features
+
+* Providing metric prefix for circuit metrics ([#32](https://github.com/lholmquist/opossum-prometheus/issues/32)) ([0d85a86](https://github.com/lholmquist/opossum-prometheus/commit/0d85a86a9f594c58f3f900cb98000e58a9eeb058))
+
+
+### Bug Fixes
+
+* upgrade standard-version from 8.0.1 to 8.0.2 ([#30](https://github.com/lholmquist/opossum-prometheus/issues/30)) ([e8edaa1](https://github.com/lholmquist/opossum-prometheus/commit/e8edaa11c2bd35908810477872519d6694fc4857))
+
 ## [0.2.0](https://github.com/lholmquist/opossum-prometheus/compare/v0.1.0...v0.2.0) (2020-04-23)
 
 
