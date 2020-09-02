@@ -13,10 +13,11 @@ const client = require('prom-client');
 class PrometheusMetrics {
   constructor (options = {}) {
     this._registry = options.registry || client.register;
+    this._metricPrefix = options.metricPrefix || ``;
     this._client = client;
     this._options = options;
     this._counter = new this._client.Counter({
-      name: `circuit`,
+      name: `${this._metricPrefix}circuit`,
       help: `A count of all circuit' events`,
       registers: [this._registry],
       labelNames: ['name', 'event']
@@ -24,7 +25,7 @@ class PrometheusMetrics {
 
     if (this.exposePerformanceMetrics()) {
       this._summary = new this._client.Summary({
-        name: `circuit_perf`,
+        name: `${this._metricPrefix}circuit_perf`,
         help: `A summary of all circuit's events`,
         registers: [this._registry],
         labelNames: ['name', 'event']
@@ -33,7 +34,10 @@ class PrometheusMetrics {
 
     if (!options.registry) {
       this.interval = this._client
-        .collectDefaultMetrics({ prefix: 'opossum_', timeout: 5000 });
+        .collectDefaultMetrics({
+          prefix: `${this._metricPrefix}opossum_`,
+          timeout: 5000
+        });
     }
 
     if (options.circuits) {
