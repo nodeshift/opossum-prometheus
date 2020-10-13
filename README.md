@@ -1,8 +1,7 @@
 # Prometheus Metrics for Opossum Circuit Breaker
 
-[![CircleCI](https://circleci.com/gh/nodeshift/opossum-prometheus.svg?style=svg)](https://circleci.com/gh/nodeshift/opossum-prometheus)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6dcbcd9e5a6649faafb5b00ceeecb4db)](https://www.codacy.com/app/nodeshift/opossum-prometheus?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nodeshift/opossum-prometheus&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/6dcbcd9e5a6649faafb5b00ceeecb4db)](https://www.codacy.com/app/nodeshift/opossum-prometheus?utm_source=github.com&utm_medium=referral&utm_content=nodeshift/opossum-prometheus&utm_campaign=Badge_Coverage)
+![Node.js CI](https://github.com/nodeshift/opossum-prometheus/workflows/Node.js%20CI/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/nodeshift/opossum-prometheus/badge.svg?branch=master)](https://coveralls.io/github/nodeshift/opossum-prometheus?branch=master)
 [![dependencies Status](https://david-dm.org/nodeshift/opossum-prometheus/status.svg)](https://david-dm.org/nodeshift/opossum-prometheus)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum-prometheus/badge.svg)](https://snyk.io/test/npm/opossum-prometheus) [![Greenkeeper badge](https://badges.greenkeeper.io/nodeshift/opossum-prometheus.svg)](https://greenkeeper.io/)
 
