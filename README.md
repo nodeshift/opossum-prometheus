@@ -2,7 +2,6 @@
 
 ![Node.js CI](https://github.com/nodeshift/opossum-prometheus/workflows/Node.js%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/nodeshift/opossum-prometheus/badge.svg?branch=master)](https://coveralls.io/github/nodeshift/opossum-prometheus?branch=master)
-[![dependencies Status](https://david-dm.org/nodeshift/opossum-prometheus/status.svg)](https://david-dm.org/nodeshift/opossum-prometheus)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum-prometheus/badge.svg)](https://snyk.io/test/npm/opossum-prometheus) [![Greenkeeper badge](https://badges.greenkeeper.io/nodeshift/opossum-prometheus.svg)](https://greenkeeper.io/)
 
 This module provides [Prometheus](https://prometheus.io/) metrics for
@@ -23,15 +22,15 @@ Example:
 
   // create a couple of circuit breakers
   const c1 = new CircuitBreaker(someFunction);
-  const c2 = new CircuitBreaker(someOtherfunction);
+  const c2 = new CircuitBreaker(someOtherFunction);
 
   // Provide them to the constructor
   const prometheus = new PrometheusMetrics({ circuits: [c1, c2] });
 
   //...
   // Provide other circuit breaker later
-  const c3 = new CircuitBreaker(someOtherfunction3);
-  prometheus.add([C3]);
+  const c3 = new CircuitBreaker(someOtherFunction3);
+  prometheus.add([c3]);
   
   // Write metrics to the console
   console.log(prometheus.metrics);
