@@ -1,7 +1,7 @@
 # Prometheus Metrics for Opossum Circuit Breaker
 
 ![Node.js CI](https://github.com/nodeshift/opossum-prometheus/workflows/Node.js%20CI/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/nodeshift/opossum-prometheus/badge.svg?branch=master)](https://coveralls.io/github/nodeshift/opossum-prometheus?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/nodeshift/opossum-prometheus/badge.svg?branch=main)](https://coveralls.io/github/nodeshift/opossum-prometheus?branch=main)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum-prometheus/badge.svg)](https://snyk.io/test/npm/opossum-prometheus) [![Greenkeeper badge](https://badges.greenkeeper.io/nodeshift/opossum-prometheus.svg)](https://greenkeeper.io/)
 
 This module provides [Prometheus](https://prometheus.io/) metrics for
