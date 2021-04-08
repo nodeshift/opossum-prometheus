@@ -4,6 +4,7 @@
   "description": "Prometheus metrics for opossum circuit breaker",
   "main": "index.js",
   "scripts": {
+    "prepare": "husky install",
     "pretest": "npm run lint",
     "test": "nyc tape test/*.js | tap-spec",
     "prerelease": "npm run test",
@@ -25,6 +26,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "coveralls": "^3.1.0",
+    "husky": "^6.0.0",
     "nyc": "^15.1.0",
     "opossum": "^5.1.3",
     "standard-version": "^9.1.0",
