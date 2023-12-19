@@ -34,7 +34,7 @@
     "husky": "^6.0.0",
     "nyc": "^15.1.0",
     "opossum": "^6.2.1",
-    "standard-version": "^9.3.0",
+    "standard-version": "^9.5.0",
     "tap-spec": "^5.0.0",
     "tape": "^5.2.2"
   },
