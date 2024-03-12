@@ -33,11 +33,10 @@ class PrometheusMetrics {
     }
 
     if (!options.registry) {
-      this.interval = this._client
-        .collectDefaultMetrics({
-          prefix: `${this._metricPrefix}opossum_`,
-          timeout: 5000
-        });
+      this._client.collectDefaultMetrics({
+        prefix: `${this._metricPrefix}opossum_`,
+        register: this._registry
+      });
     }
 
     if (options.circuits) {
@@ -75,11 +74,10 @@ class PrometheusMetrics {
   }
 
   clear () {
-    clearInterval(this.interval);
     this._registry.clear();
   }
 
-  get metrics () {
+  metrics () {
     return this._registry.metrics();
   }
 

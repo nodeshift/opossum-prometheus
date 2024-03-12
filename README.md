@@ -33,7 +33,7 @@ Example:
   prometheus.add([c3]);
   
   // Write metrics to the console
-  console.log(prometheus.metrics);
+  console.log(await prometheus.metrics());
 ```
 
 This module would typically be used in an application that can provide
