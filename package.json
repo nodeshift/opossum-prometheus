@@ -4,11 +4,19 @@
   "description": "Prometheus metrics for opossum circuit breaker",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky install",
-    "pretest": "eslint --ignore-path .gitignore .",
+    "prepare": "husky || true",
+    "lint": "eslint --ignore-path .gitignore .",
+    "pretest": "npm run lint",
     "test": "nyc tape test/*.js | tap-spec",
     "prerelease": "npm run test",
     "release": "standard-version -s -a"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nodeshift/opossum-prometheus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodeshift/opossum-prometheus/issues"
   },
   "support": {
     "target": "LTS",
@@ -25,23 +33,23 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "coveralls": "^3.1.1",
-    "eslint": "^7.32.0",
-    "eslint-config-semistandard": "^16.0.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint": "^8.57.0",
+    "eslint-config-semistandard": "^17.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.2.0",
-    "husky": "^6.0.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "husky": "^9.0.11",
     "nyc": "^15.1.0",
-    "opossum": "^6.2.1",
-    "standard-version": "^9.3.0",
+    "opossum": "^8.1.3",
+    "standard-version": "^9.5.0",
     "tap-spec": "^5.0.0",
-    "tape": "^5.2.2"
+    "tape": "^5.7.5"
   },
   "dependencies": {
-    "prom-client": "^12.0.0"
+    "prom-client": "^15.1.0"
   },
   "engines": {
-    "node": "^18 || ^16 || ^14"
+    "node": "^21 || ^20 || ^18 || ^16"
   }
 }
