@@ -47,7 +47,7 @@
     "tape": "^5.7.5"
   },
   "dependencies": {
-    "prom-client": "^15.1.0"
+    "prom-client": "^15.1.1"
   },
   "engines": {
     "node": "^21 || ^20 || ^18 || ^16"
