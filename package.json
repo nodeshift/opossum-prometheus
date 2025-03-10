@@ -41,7 +41,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "husky": "^9.1.6",
     "nyc": "^17.1.0",
-    "opossum": "^8.3.0",
+    "opossum": "^8.4.0",
     "standard-version": "^9.5.0",
     "tap-spec": "^5.0.0",
     "tape": "^5.9.0"
