@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/nodeshift/opossum-prometheus/compare/v0.4.0...v0.5.0) (2025-06-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove Node 18 support (#108)
+* Bump supported node.js version (#91)
+
+### Features
+
+* add node 24 support ([#107](https://github.com/nodeshift/opossum-prometheus/issues/107)) ([f39e426](https://github.com/nodeshift/opossum-prometheus/commit/f39e426f5b047eb6a37d4c77f31c5e81ff79804f))
+* Bump supported node.js version ([#91](https://github.com/nodeshift/opossum-prometheus/issues/91)) ([65886aa](https://github.com/nodeshift/opossum-prometheus/commit/65886aa4332a4f58143e061dfea301751c8ddd49))
+* remove Node 18 support ([#108](https://github.com/nodeshift/opossum-prometheus/issues/108)) ([025d55f](https://github.com/nodeshift/opossum-prometheus/commit/025d55f6230ea495c2d581d0a2527196d2929d01))
+
+
+### Bug Fixes
+
+* upgrade opossum from 8.3.0 to 8.4.0 ([#96](https://github.com/nodeshift/opossum-prometheus/issues/96)) ([2dcebf3](https://github.com/nodeshift/opossum-prometheus/commit/2dcebf34ccd6fd01c987c27f1fbd4552295ecdbc))
+* upgrade prom-client from 15.1.0 to 15.1.1 ([#80](https://github.com/nodeshift/opossum-prometheus/issues/80)) ([e29d378](https://github.com/nodeshift/opossum-prometheus/commit/e29d378a7ca5bad9e6aaf0cc0982bc74bdfc323e))
+
 ## [0.4.0](https://github.com/nodeshift/opossum-prometheus/compare/v0.3.0...v0.4.0) (2024-04-08)
 
 
