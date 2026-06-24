@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/nodeshift/opossum-prometheus/compare/v0.5.0...v1.0.0) (2026-06-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove Node 20 support
+
+### Features
+
+* remove Node 20 support ([c8ed580](https://github.com/nodeshift/opossum-prometheus/commit/c8ed5800a9201748952e679b20f2f6ee15adaffe))
+
+
+### Bug Fixes
+
+* adding releaes please ([704b588](https://github.com/nodeshift/opossum-prometheus/commit/704b588adc2ce34cb6c0d6928fc3f3d1d0b3ea90))
+* upating ci nodejs-ci-action.yml file ([1effeaf](https://github.com/nodeshift/opossum-prometheus/commit/1effeaf1d9888462e16d56ea7133b2817bd7c86e))
+
 ## [0.5.0](https://github.com/nodeshift/opossum-prometheus/compare/v0.4.0...v0.5.0) (2025-06-10)
 
 
